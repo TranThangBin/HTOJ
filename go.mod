@@ -2,15 +2,22 @@ module HTOJ
 
 go 1.25.4
 
-require github.com/gin-gonic/gin v1.11.0
+require (
+	github.com/a-h/templ v0.3.960
+	github.com/gin-gonic/gin v1.11.0
+)
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
+	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
 	github.com/air-verse/air v1.63.4 // indirect
+	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/bep/godartsass/v2 v2.5.0 // indirect
 	github.com/bep/golibsass v1.2.0 // indirect
 	github.com/bytedance/sonic v1.14.0 // indirect
 	github.com/bytedance/sonic/loader v0.3.0 // indirect
+	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
+	github.com/cli/browser v1.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
@@ -30,6 +37,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/natefinch/atomic v1.0.1 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/quic-go/qpack v0.5.1 // indirect
@@ -51,4 +59,7 @@ require (
 	google.golang.org/protobuf v1.36.9 // indirect
 )
 
-tool github.com/air-verse/air
+tool (
+	github.com/a-h/templ/cmd/templ
+	github.com/air-verse/air
+)

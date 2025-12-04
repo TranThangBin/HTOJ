@@ -1,0 +1,13 @@
+services:
+  htoj-dev:
+    container_name: htoj-dev
+    image: htoj-dev:latest
+    build: .
+    volumes:
+      - ./build.sh:/app/build.sh
+      - ./cmd:/app/cmd
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./templates:/app/templates
+    ports:
+      - 8079:8079
