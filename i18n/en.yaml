@@ -19,5 +19,8 @@ user_menu: "Open user menu"
 profile: "Your profile"
 settings: "Settings"
 sign_out: "Sign out"
+sign_in: "Đăng nhập"
+sign_up: "Sign up"
 main_menu: "Open main menu"
 overview: "Overview"
+  
