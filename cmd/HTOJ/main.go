@@ -71,6 +71,36 @@ func main() {
 		templates.Home(t).Render(ctx.Request.Context(), ctx.Writer)
 	})
 
+	r.GET("/problems", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Problems(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+	r.GET("/contests", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Contests(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+	r.GET("/submissions", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Submissions(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+	r.GET("/organizations", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Organizations(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+
+	r.GET("/organizations/classes", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Classes(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+
+	r.GET("/ranking", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Ranking(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
+	r.GET("/organizations/groups", func(ctx *gin.Context) {
+		t, _, _ := fromContext(ctx, bundle)
+		templates.Groups(t).Render(ctx.Request.Context(), ctx.Writer)
+	})
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})

@@ -1,0 +1,12 @@
+package templates
+
+templ Submissions(t func(string) string) {
+	@Base(t) {
+		<main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+			<section class="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-100">
+				<h1 class="mt-1 text-4xl font-bold text-slate-900" data-i18n="Submissions">{ t("Submissions") }</h1>
+				<p class="mt-3 text-base text-slate-600" data-i18n="Submissions List">{ t("Submissions List") }</p>
+			</section>
+		</main>
+	}
+}
