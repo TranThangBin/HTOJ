@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: htoj-postgres
-    image: postgres:16-alpine
+    image: docker.io/library/postgres:16-alpine
     environment:
       POSTGRES_USER: htoj
       POSTGRES_PASSWORD: htoj123
@@ -18,7 +18,7 @@ services:
 
   redis:
     container_name: htoj-redis
-    image: valkey/valkey:7-alpine
+    image: docker.io/valkey/valkey:7-alpine
     command: valkey-server --requirepass htoj123
     volumes:
       - redis_data:/data
