@@ -22,30 +22,29 @@ func main() {
 	r.Static("/public", "./public")
 	r.Use(localeMiddleware(bundle))
 
-	// API endpoint to get all translations for client-side i18n
 	r.GET("/api/translations/:lang", func(ctx *gin.Context) {
 		lang := ctx.Param("lang")
 		if !bundle.HasLocale(lang) {
 			ctx.JSON(http.StatusNotFound, gin.H{"error": "language not found"})
 			return
 		}
-		
+
 		translations := bundle.GetTranslations(lang)
-		
-		// Set cache headers - cache for 1 hour, but revalidate
+
 		ctx.Header("Cache-Control", "public, max-age=3600, must-revalidate")
-		// ETag based on translations hash for cache validation
+
 		etag := bundle.GetETag(lang)
 		ctx.Header("ETag", etag)
-		
-		// Check if client has cached version
+
 		if match := ctx.GetHeader("If-None-Match"); match == etag {
 			ctx.Status(http.StatusNotModified)
 			return
 		}
-		
+
 		ctx.JSON(http.StatusOK, translations)
-	})	r.GET("/", func(ctx *gin.Context) {
+	})
+
+	r.GET("/", func(ctx *gin.Context) {
 		t, _, _ := fromContext(ctx, bundle)
 		templates.Home(t).Render(ctx.Request.Context(), ctx.Writer)
 	})
@@ -69,7 +68,7 @@ func localeMiddleware(bundle *i18n.Bundle) gin.HandlerFunc {
 			log.Printf("i18n: missing locale %q, fallback to %s", lang, bundle.Default())
 			lang = bundle.Default()
 		}
-		// Persist whichever locale we resolved so the next request (without query param) stays in that language.
+
 		c.SetCookie("lang", lang, int((30 * 24 * time.Hour).Seconds()), "/", "", false, false)
 		c.Header("Content-Language", lang)
 		translator := bundle.Translator(lang)

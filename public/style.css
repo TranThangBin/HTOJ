@@ -2671,9 +2671,6 @@
   .\[--anchor-gap\:--spacing\(2\)\] {
     --anchor-gap: calc(var(--spacing) * 2);
   }
-  .\[m\:�y\] {
-    m: �y;
-  }
   .backface-hidden {
     backface-visibility: hidden;
   }
