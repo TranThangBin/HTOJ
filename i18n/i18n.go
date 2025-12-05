@@ -2,6 +2,8 @@ package i18n
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -86,6 +88,14 @@ func (b *Bundle) GetTranslations(lang string) map[string]string {
 		return translations
 	}
 	return b.locales[b.defaultLang]
+}
+
+// GetETag generates an ETag hash for cache validation
+func (b *Bundle) GetETag(lang string) string {
+	translations := b.GetTranslations(lang)
+	data, _ := json.Marshal(translations)
+	hash := sha256.Sum256(data)
+	return `"` + hex.EncodeToString(hash[:8]) + `"` // Use first 8 bytes for shorter ETag
 }
 
 // Default returns the default language

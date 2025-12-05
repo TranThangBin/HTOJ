@@ -29,12 +29,23 @@ func main() {
 			ctx.JSON(http.StatusNotFound, gin.H{"error": "language not found"})
 			return
 		}
-
+		
 		translations := bundle.GetTranslations(lang)
+		
+		// Set cache headers - cache for 1 hour, but revalidate
+		ctx.Header("Cache-Control", "public, max-age=3600, must-revalidate")
+		// ETag based on translations hash for cache validation
+		etag := bundle.GetETag(lang)
+		ctx.Header("ETag", etag)
+		
+		// Check if client has cached version
+		if match := ctx.GetHeader("If-None-Match"); match == etag {
+			ctx.Status(http.StatusNotModified)
+			return
+		}
+		
 		ctx.JSON(http.StatusOK, translations)
-	})
-
-	r.GET("/", func(ctx *gin.Context) {
+	})	r.GET("/", func(ctx *gin.Context) {
 		t, _, _ := fromContext(ctx, bundle)
 		templates.Home(t).Render(ctx.Request.Context(), ctx.Writer)
 	})
