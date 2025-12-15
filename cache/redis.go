@@ -11,7 +11,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-var Redis *redis.Client
+var Valkey *redis.Client
 
 type Config struct {
 	Host     string
@@ -21,11 +21,11 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	db, _ := strconv.Atoi(getEnv("REDIS_DB", "0"))
+	db, _ := strconv.Atoi(getEnv("VALKEY_DB", "0"))
 	return &Config{
-		Host:     getEnv("REDIS_HOST", "localhost"),
-		Port:     getEnv("REDIS_PORT", "6379"),
-		Password: getEnv("REDIS_PASSWORD", ""),
+		Host:     getEnv("VALKEY_HOST", "localhost"),
+		Port:     getEnv("VALKEY_PORT", "6379"),
+		Password: getEnv("VALKEY_PASSWORD", ""),
 		DB:       db,
 	}
 }
@@ -58,35 +58,35 @@ func Connect() (*redis.Client, error) {
 		return nil, fmt.Errorf("failed to connect to redis: %w", err)
 	}
 
-	Redis = client
+	Valkey = client
 	log.Println("Redis connected successfully")
 	return client, nil
 }
 
 func Close() error {
-	if Redis != nil {
-		return Redis.Close()
+	if Valkey != nil {
+		return Valkey.Close()
 	}
 	return nil
 }
 
 // Helper functions
 func Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
-	return Redis.Set(ctx, key, value, expiration).Err()
+	return Valkey.Set(ctx, key, value, expiration).Err()
 }
 
 func Get(ctx context.Context, key string) (string, error) {
-	return Redis.Get(ctx, key).Result()
+	return Valkey.Get(ctx, key).Result()
 }
 
 func Del(ctx context.Context, keys ...string) error {
-	return Redis.Del(ctx, keys...).Err()
+	return Valkey.Del(ctx, keys...).Err()
 }
 
 func Exists(ctx context.Context, keys ...string) (int64, error) {
-	return Redis.Exists(ctx, keys...).Result()
+	return Valkey.Exists(ctx, keys...).Result()
 }
 
 func Expire(ctx context.Context, key string, expiration time.Duration) error {
-	return Redis.Expire(ctx, key, expiration).Err()
+	return Valkey.Expire(ctx, key, expiration).Err()
 }

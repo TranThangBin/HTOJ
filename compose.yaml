@@ -11,12 +11,12 @@ services:
     ports:
       - 5432:5432
 
-  redis:
-    container_name: htoj-redis
+  valkey:
+    container_name: htoj-valkey
     image: docker.io/valkey/valkey:7-alpine
     command: valkey-server --requirepass htoj123
     volumes:
-      - redis_data:/data
+      - valkey_data:/data
     ports:
       - 6380:6379
 
@@ -25,10 +25,8 @@ services:
     image: htoj-dev:latest
     build: .
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - valkey
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -36,10 +34,10 @@ services:
       DB_PASSWORD: htoj123
       DB_NAME: htoj_dev
       DB_SSLMODE: disable
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_PASSWORD: htoj123
-      REDIS_DB: 0
+      VALKEY_HOST: valkey
+      VALKEY_PORT: 6379
+      VALKEY_PASSWORD: htoj123
+      VALKEY_DB: 0
     volumes:
       - ./build.sh:/app/build.sh
       - ./.air.toml:/app/.air.toml
@@ -55,4 +53,4 @@ services:
 
 volumes:
   postgres_data:
-  redis_data:
+  valkey_data:
