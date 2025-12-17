@@ -34,7 +34,12 @@ func main() {
 		}
 		templates.Image(dogRes["message"]).Render(ctx, ctx.Writer)
 	})
-
+	r.GET("/", func(ctx *gin.Context) {
+		templates.Base().Render(ctx, ctx.Writer)
+	})
+	r.GET("/problems", func(ctx *gin.Context) {
+		templates.Home().Render(ctx, ctx.Writer)
+	})
 	// Start server on port 8080 (default)
 	// Server will listen on 0.0.0.0:8080 (localhost:8080 on Windows)
 	r.Run()
