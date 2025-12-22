@@ -1,0 +1,158 @@
+package components
+
+type dropDownData struct {
+	Label    string
+	Contents []dropDownContent
+}
+
+type dropDownContent struct {
+	Label       string
+	IconClasses string
+	Link        string
+}
+
+templ NavBar() {
+	{{
+		lsDropDownData := []dropDownData{
+			{
+				Label: "Problems",
+				Contents: []dropDownContent{
+					{
+						Label:       "Competitive Programming",
+						IconClasses: "fa-solid fa-code",
+						Link:        "#",
+					},
+					{
+						Label:       "SQL Challenges",
+						IconClasses: "fa-solid fa-database",
+						Link:        "#",
+					},
+				},
+			},
+			{
+				Label: "Compete",
+				Contents: []dropDownContent{
+					{
+						Label:       "Contests",
+						IconClasses: "fa-solid fa-trophy",
+						Link:        "#",
+					},
+					{
+						Label:       "Ranking",
+						IconClasses: "fa-solid fa-chart-simple",
+						Link:        "#",
+					},
+				},
+			},
+			{
+				Label: "Management",
+				Contents: []dropDownContent{
+					{
+						Label:       "Organizations",
+						IconClasses: "fa-solid fa-building",
+						Link:        "#",
+					},
+					{
+						Label:       "Classes",
+						IconClasses: "fa-solid fa-graduation-cap",
+						Link:        "#",
+					},
+					{
+						Label:       "Groups",
+						IconClasses: "fa-solid fa-users",
+						Link:        "#",
+					},
+					{
+						Label:       "Teams",
+						IconClasses: "fa-solid fa-user-group",
+						Link:        "#",
+					},
+				},
+			},
+		}
+	}}
+	<header class="grid grid-cols-[auto_1fr_auto] items-center bg-neutral-800">
+		<a
+			href="/"
+			class="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text
+                text-lg font-bold text-transparent px-6 py-4"
+		>
+			HTOJ
+		</a>
+		<nav class="text-neutral-200">
+			<ul class="flex justify-center text-sm min-h-full">
+				for _, data := range lsDropDownData {
+					<li
+						class="group relative inline-flex justify-center items-center px-6 py-2
+                            rounded-lg transition-colors hover:bg-white/10"
+					>
+						{ data.Label }
+						<i
+							class="fa-solid fa-angle-down
+                                group-hover:rotate-z-180 transition-transform"
+						></i>
+						<ul
+							class="rounded-lg p-4 absolute top-full flex flex-col bg-neutral-900/90 transition-all
+                                group-hover:visible group-hover:translate-y-0 group-hover:opacity-100
+                                invisible translate-y-1 opacity-0"
+						>
+							for _, content := range data.Contents {
+								<li>
+									<a
+										class="w-full inline-flex items-center gap-4 p-4
+                                            rounded-lg transition-colors hover:bg-white/10"
+										href={ content.Link }
+									>
+										<i class={ content.IconClasses }></i>
+										<span>{ content.Label }</span>
+									</a>
+								</li>
+							}
+						</ul>
+					</li>
+				}
+			</ul>
+		</nav>
+		<ul class="text-neutral-400 flex gap-2 items-center px-6">
+			<li class="group relative transition-colors hover:text-white hover:bg-white/10 p-2 rounded-lg">
+				<i class="fa-solid fa-language"></i>
+				<ul
+					class="absolute text-white bg-neutral-900/90 top-full right-0 rounded-lg p-4
+                        transition-all invisible translate-y-1 opacity-0
+                        group-hover:visible  group-hover:translate-y-0 group-hover:opacity-100"
+				>
+					<li>
+						<a
+							class="inline-flex items-center gap-4 p-4 rounded-lg
+                                transition-colors hover:bg-white/10"
+							href="#"
+						>
+							🇺🇸 <span>English</span>
+						</a>
+					</li>
+					<li>
+						<a
+							class="inline-flex items-center gap-4 p-4 rounded-lg
+                                transition-colors hover:bg-white/10"
+							href="#"
+						>
+							🇻🇳 <span>Tiếng Việt</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li class="rounded-lg p-2 transition-colors hover:text-white hover:bg-white/10 cursor-pointer">
+				<i class="fa-regular fa-moon"></i>
+			</li>
+			<li>
+				<a
+					class="font-semibold inline-block bg-white text-black border-2 border-black
+                        px-4 py-2 rounded-lg transition-transform hover:-translate-y-0.5"
+					href="#"
+				>
+					Enter
+				</a>
+			</li>
+		</ul>
+	</header>
+}

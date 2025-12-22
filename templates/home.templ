@@ -1,8 +1,9 @@
 package templates
 
+import "HTOJ/templates/components"
 
 templ Home() {
-    @Base() {
-        <h1>This is Problem page</h1>
-    }
+	@Base() {
+		@components.NavBar()
+	}
 }
